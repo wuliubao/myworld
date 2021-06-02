@@ -4,16 +4,26 @@ import scipy as sp
 import matplotlib.pyplot as plt
 from sklearn import manifold
 
-stats = pd.read_table('/Users/wangtianyi/Documents/python_work/regression.csv')
+"""
+lib: sklearn
+feature: manifold--isomap/LocallyLinearEmbedding/TSNE
+"""
+
+# STEP1
+#
+stats = pd.read_table('dataset/regression.csv')
 point = stats.iloc[:,4] / 38
 positional_rating = stats.iloc[:,[0,1,2,3]]
 
+# STEP1-2
+#
 iso = manifold.Isomap(n_neighbors=2, n_components=2).fit_transform(positional_rating)
 lle = manifold.LocallyLinearEmbedding(n_neighbors=2, n_components=2).fit_transform(positional_rating)
 tsne = manifold.TSNE(n_components=2).fit_transform(positional_rating)
 
-fig = plt.figure()  
-  
+# STEP1-SHOW
+#
+fig = plt.figure()
 ax1 = fig.add_subplot(131)  
 ax1.scatter(iso[:, 0], iso[:, 1], c='r')
 plt.title("Isomap result")

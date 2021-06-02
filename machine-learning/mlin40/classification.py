@@ -4,7 +4,14 @@ import scipy as sp
 import matplotlib.pyplot as plt
 from sklearn import discriminant_analysis, linear_model
 
-rawstat = pd.read_table('/Users/wangtianyi/Documents/python_work/linear separable.csv')
+"""
+lib: sklearn
+model: discriminantAnalysis/logisticRegression
+"""
+
+# STEP1
+#
+rawstat = pd.read_table('dataset/linear separable.csv')
 stat = rawstat.iloc[:,[0,1]]
 shots = rawstat.iloc[:,0]
 tackles = rawstat.iloc[:,1]
@@ -14,15 +21,21 @@ x_min, x_max = shots.min() - 0.2, shots.max() + 0.2
 y_min, y_max = tackles.min() - 0.2, tackles.max() + 0.2
 xx, yy = np.meshgrid(np.arange(x_min, x_max, 0.01), np.arange(y_min, y_max, 0.01))
 
+# STEP2
+# 1.linear discriminant analysis
 lda_model = discriminant_analysis.LinearDiscriminantAnalysis().fit(stat, category)
+
+# 2.logistic regression
+# an infinite C indicates no regularization
+logreg_model = linear_model.LogisticRegression(C=1e9).fit(stat, category)
+
+# STEP4
 lda_result = lda_model.predict(np.c_[xx.ravel(), yy.ravel()])
 lda_result = lda_result.reshape(xx.shape)
 
-# an infinite C indicates no regularization
-logreg_model = linear_model.LogisticRegression(C=1e9).fit(stat, category)
 lr_result = logreg_model.predict(np.c_[xx.ravel(), yy.ravel()])
 lr_result = lr_result.reshape(xx.shape)
-  
+
 fig = plt.figure()
 
 ax1 = fig.add_subplot(121)  
