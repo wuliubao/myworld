@@ -4,9 +4,16 @@ import scipy as sp
 import matplotlib.pyplot as plt
 from sklearn import ensemble
 
+"""
+lib: sklearn / ensemble
+model: GBDT & RandomForest
+"""
+
+## STEP1
+#
 ratio = []
 
-rawstat = pd.read_table('/Users/wangtianyi/Documents/python_work/linear inseparable.csv')
+rawstat = pd.read_table('dataset/linear inseparable.csv')
 category = rawstat.iloc[:,0]
 pass_ratio = rawstat.iloc[:,1] / rawstat.iloc[:,2]
 shot_ratio = rawstat.iloc[:,3] / rawstat.iloc[:,4]
@@ -21,9 +28,13 @@ y_min, y_max = ratio[1].min() - 0.05, ratio[1].max() + 0.05
 xx, yy = np.meshgrid(np.arange(x_min, x_max, 0.01), np.arange(y_min, y_max, 0.01))
 xy = np.vstack([xx.ravel(), yy.ravel()]).T
 
+## STEP2
+#
 gbdt = ensemble.GradientBoostingClassifier(learning_rate=1e-2,max_depth=3).fit(ratio.T, category)
 rf = ensemble.RandomForestClassifier(max_depth=3,max_features=1).fit(ratio.T, category)
 
+## STEP3
+#
 fig, axarr = plt.subplots(1, 2)
 for j, model, subtitle in zip([0,1],[gbdt,rf],['GBDT result','RF result']):
     xy = np.vstack([xx.ravel(), yy.ravel()]).T

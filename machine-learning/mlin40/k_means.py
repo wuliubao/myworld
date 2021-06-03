@@ -4,7 +4,14 @@ import scipy as sp
 import matplotlib.pyplot as plt
 from sklearn import cluster
 
-rawstat = pd.read_table('/Users/wangtianyi/Documents/python_work/clustering.csv')
+"""
+lib: sklearn / cluster
+model: K-Means
+"""
+
+## STEP1
+#
+rawstat = pd.read_table('dataset/clustering.csv')
 stat = pd.DataFrame(rawstat.iloc[:,0])
 stat['pass_ratio'] = rawstat.iloc[:,1] / rawstat.iloc[:,2]
 stat['dribble_ratio'] = rawstat.iloc[:,3] / rawstat.iloc[:,4]
@@ -14,9 +21,14 @@ seed = seed.iloc[:,[1,2]]
 init = seed.values
 
 cluster_stat = stat.iloc[:,[1,2]].values
+
+## STEP2
+#
 kmeans_set = cluster.KMeans(n_clusters=3, init=init).fit(cluster_stat)
 kmeans_rand = cluster.KMeans(n_clusters=3).fit(cluster_stat)
 
+## STEP4
+#
 x_min, x_max = stat['pass_ratio'].min() - 0.05, stat['pass_ratio'].max() + 0.05
 y_min, y_max = stat['dribble_ratio'].min() - 0.05, stat['dribble_ratio'].max() + 0.05
 xx, yy = np.meshgrid(np.arange(x_min, x_max, 0.001), np.arange(y_min, y_max, 0.001))

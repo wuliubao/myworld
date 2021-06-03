@@ -4,7 +4,14 @@ import scipy as sp
 import matplotlib.pyplot as plt
 from sklearn import linear_model
 
-rawstat = pd.read_table('/Users/wangtianyi/Documents/python_work/linear separable.csv')
+"""
+lib: sklearn / linear_model
+model: ANN/perceptron
+"""
+
+## STEP1
+#
+rawstat = pd.read_table('dataset/linear separable.csv')
 stat = rawstat.iloc[:,[0,1]]
 shots = rawstat.iloc[:,0]
 tackles = rawstat.iloc[:,1]
@@ -16,8 +23,12 @@ xx, yy = np.meshgrid(np.arange(x_min, x_max, 0.01), np.arange(y_min, y_max, 0.01
 
 fig, axarr = plt.subplots(1, 3)
 for i in range(3):
+    ## STEP2
     # eta0 is the update rate
     per_model = linear_model.Perceptron(max_iter=2*i+1, eta0=1e-3).fit(stat, category)
+
+    ## STEP3
+    #
     per_result = per_model.predict(np.c_[xx.ravel(), yy.ravel()]).reshape(xx.shape)
 
     axarr[i].pcolormesh(xx, yy, per_result, cmap=plt.cm.Paired)

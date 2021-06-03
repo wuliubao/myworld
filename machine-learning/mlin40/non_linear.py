@@ -5,8 +5,14 @@ from sklearn import metrics
 import statsmodels.api as sm
 import patsy
 
+"""
+lib: patsy (from R)
+model: 
+"""
+
+## STEP1
 # data acquisition
-stats = pd.read_table('/Users/wangtianyi/Documents/python_work/regression.csv')
+stats = pd.read_table('dataset/regression.csv')
 point = stats.iloc[:,4] / 38
 rating = stats.iloc[:,5]
 

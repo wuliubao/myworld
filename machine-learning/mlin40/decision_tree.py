@@ -4,7 +4,13 @@ import scipy as sp
 import matplotlib.pyplot as plt
 from sklearn import linear_model, tree
 
-stats = pd.read_table('/Users/wangtianyi/Documents/python_work/regression.csv')
+"""
+lib: sklearn / tree
+model: decision_tree
+"""
+
+## STEP1
+stats = pd.read_table('dataset/regression.csv')
 point = stats.iloc[:,4] / 38
 rating = stats.iloc[:,5]
 positional_rating = stats.iloc[:,[1,3]].values
@@ -17,22 +23,26 @@ stat['FW'] = stats.iloc[:,3]
 # performing a tiny pertubation and rearranging data in the ascending order
 x = np.arange(6.5, 7.2, 1e-3)[:, np.newaxis]
 
-linear = linear_model.LinearRegression()
-linear_pred = linear.fit(rating, point).predict(x)
-
-# one dimensional tree
-regression_tree = tree.DecisionTreeRegressor(max_depth=3)
-tree_pred = regression_tree.fit(rating, point).predict(x)
-
-# two dimensional tree
-multi_tree = tree.DecisionTreeRegressor(max_depth=3)
-multi_pred = multi_tree.fit(positional_rating, point).predict(np.c_[xx.ravel(), yy.ravel()])
-multi_result = multi_pred.reshape(xx.shape)
-
 x_min, x_max = positional_rating[:,0].min() - 0.05, positional_rating[:,0].max() + 0.05
 y_min, y_max = positional_rating[:,1].min() - 0.05, positional_rating[:,1].max() + 0.05
 xx, yy = np.meshgrid(np.arange(x_min, x_max, 0.001), np.arange(y_min, y_max, 0.001))
 
+## STEP2
+# 1.linear
+linear = linear_model.LinearRegression()
+linear_pred = linear.fit(rating, point).predict(x)
+
+# 2.one dimensional tree
+regression_tree = tree.DecisionTreeRegressor(max_depth=3)
+tree_pred = regression_tree.fit(rating, point).predict(x)
+
+# 3.two dimensional tree
+multi_tree = tree.DecisionTreeRegressor(max_depth=3)
+multi_pred = multi_tree.fit(positional_rating, point).predict(np.c_[xx.ravel(), yy.ravel()])
+multi_result = multi_pred.reshape(xx.shape)
+
+## STEP4
+#
 plt.figure(1)
 plt.scatter(rating, point, c="r", s=10, label = "data")
 plt.plot(x, linear_pred, c="b", linewidth=2, label = "linear regression")
