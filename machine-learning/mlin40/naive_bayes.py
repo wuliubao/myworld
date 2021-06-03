@@ -1,6 +1,13 @@
 import numpy as np
 from sklearn import naive_bayes
 
+"""
+lib: sklearn / naive_bayes
+model: naive_bayes
+"""
+
+## STEP1
+#
 data = np.array([[0,0,1,1,1],[1,0,1,1,0],[1,1,0,0,1],[1,1,0,0,0],
                 [0,1,0,0,1],[0,0,0,1,0],[1,0,0,1,1],[1,1,0,0,1],
                 [1,1,1,1,0],[1,1,0,1,0],[1,1,0,1,1],[1,0,1,1,0],
@@ -8,6 +15,8 @@ data = np.array([[0,0,1,1,1],[1,0,1,1,0],[1,1,0,0,1],[1,1,0,0,0],
 label = np.array([0,0,0,0,0,0,1,1,1,1,1,1,1])
 test_data = np.array([1,0,1,1,0])
 
+## STEP2 & STEP4
+#
 #No smoothing equivalent to frequentist naive Bayes
 nb_model = naive_bayes.BernoulliNB(alpha=0.0)
 nb_result = nb_model.fit(data, label).predict_proba(test_data.reshape(1,-1))
