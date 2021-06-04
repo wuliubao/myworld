@@ -14,7 +14,7 @@ kernel = 1e-2 * RBF([5e-3])
 ## STEP-BRANCH1-1
 #
 #Gaussian Process Regression with regression dataset
-stats = pd.read_table('dataset/regression.csv')
+stats = pd.read_table('../dataset/regression.csv')
 point = stats.iloc[:,4] / 38
 rating = stats.iloc[:,5].reshape(-1, 1)
 
@@ -29,7 +29,7 @@ gpr_pred, sigma = gpr.predict(xx_regression, return_std=True)
 #Gaussian Process Classification with linear inseparable dataset
 ratio = []
 
-rawstat = pd.read_table('dataset/linear inseparable.csv')
+rawstat = pd.read_table('../dataset/linear inseparable.csv')
 category = rawstat.iloc[:,0]
 pass_ratio = rawstat.iloc[:,1] / rawstat.iloc[:,2]
 shot_ratio = rawstat.iloc[:,3] / rawstat.iloc[:,4]

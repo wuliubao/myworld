@@ -2,6 +2,12 @@ from pgmpy.models import BayesianModel, JunctionTree
 from pgmpy.factors.discrete import TabularCPD
 from pgmpy.inference import BeliefPropagation
 
+"""
+lib: pgmpy
+model: junction tree 
+"""
+
+## model
 model = BayesianModel()
 model.add_nodes_from(['family_out','bowel_problem', 'light_on','dog_out','hear_bark'])
 model.add_edge('family_out', 'light_on')
@@ -9,6 +15,7 @@ model.add_edge('family_out', 'dog_out')
 model.add_edge('bowel_problem', 'dog_out')
 model.add_edge('dog_out', 'hear_bark')
 
+## condition
 cpd_fo = TabularCPD(variable='family_out', variable_card=2, values=[[0.15], [0.85]])
 cpd_bp = TabularCPD(variable='bowel_problem', variable_card=2, values=[[0.01], [0.99]])
 cpd_do = TabularCPD(variable='dog_out', variable_card=2, 

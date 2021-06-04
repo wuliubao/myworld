@@ -21,29 +21,29 @@ positional_rating = stats.iloc[:,[0,1,2,3]]
 linear = linear_model.LinearRegression()
 linear.fit(positional_rating, point)
 
-# STEP-BRANCH-1 4
+# STEP-BRANCH1 4
 #
 print("The coefficients of linear regression is: \n", linear.coef_, linear.intercept_)
 linear_pred = linear.predict(positional_rating)
 linear_error = metrics.mean_squared_error(point, linear_pred)
 
-# STEP-BRANCH-2 3
+# STEP-BRANCH2 3
 #
 lasso = linear_model.Lasso(alpha = 0.05)
 lasso.fit(positional_rating, point)
 
-# STEP-BRANCH-2 4
+# STEP-BRANCH2 4
 #
 print("The coefficients of LASSO is: \n", lasso.coef_, lasso.intercept_)
 lasso_pred = lasso.predict(positional_rating)
 lasso_error = metrics.mean_squared_error(point, lasso_pred)
 
-# STEP-BRANCH-3 3
+# STEP-BRANCH3 3
 #
 ridge = linear_model.Ridge(alpha = 0.05)
 ridge.fit(positional_rating, point)
 
-# STEP-BRANCH-3 4
+# STEP-BRANCH3 4
 #
 print("The coefficients of ridge regression is: \n", ridge.coef_, ridge.intercept_)
 ridge_pred = ridge.predict(positional_rating)

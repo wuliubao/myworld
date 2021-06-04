@@ -6,7 +6,12 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 
-stats = pd.read_table('/Users/wangtianyi/Documents/python_work/regression.csv')
+"""
+lib: pymc
+model: ADVI
+"""
+
+stats = pd.read_table('../dataset/regression.csv')
 point = stats.iloc[:,4] / 38
 point = point.astype(floatX)
 point = point.reshape(point.shape[0], -1)

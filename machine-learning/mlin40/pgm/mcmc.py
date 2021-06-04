@@ -3,6 +3,10 @@ import pymc3 as pm
 import scipy.stats as stats
 import matplotlib.pyplot as plt
 
+"""
+lib: pymc
+model: MCMC
+"""
 # n as number of toss and z as number of heads
 n = 50
 z = 20

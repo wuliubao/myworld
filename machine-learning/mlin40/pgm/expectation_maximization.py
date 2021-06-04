@@ -5,7 +5,11 @@ import matplotlib as mpl
 import matplotlib.pyplot as plt
 from sklearn import mixture
 
-rawstat = pd.read_table('/Users/wangtianyi/Documents/python_work/clustering.csv')
+"""
+lib: sklearn / mixture
+alg: EM
+"""
+rawstat = pd.read_table('../dataset/clustering.csv')
 stat = pd.DataFrame(rawstat.iloc[:,0])
 stat['pass_ratio'] = rawstat.iloc[:,1] / rawstat.iloc[:,2]
 stat['dribble_ratio'] = rawstat.iloc[:,3] / rawstat.iloc[:,4]

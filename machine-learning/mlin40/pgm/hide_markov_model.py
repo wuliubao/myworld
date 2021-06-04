@@ -2,6 +2,11 @@ import numpy as np
 import math
 from hmmlearn.hmm import MultinomialHMM
 
+"""
+lib: hmmlearn
+model: hide markov model
+"""
+
 model_man_derby = MultinomialHMM(n_components=2)
 states = ["Home", "Away"]
 observations = ["Win", "Lose", "Draw"]
