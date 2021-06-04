@@ -4,23 +4,32 @@ import matplotlib.pyplot as plt
 from sklearn import gaussian_process
 from sklearn.gaussian_process.kernels import RBF
 
+"""
+lib: sklearn
+model: gaussian process
+"""
+
 kernel = 1e-2 * RBF([5e-3])
 
+## STEP-BRANCH1-1
+#
 #Gaussian Process Regression with regression dataset
-stats = pd.read_table('/Users/wangtianyi/Documents/python_work/regression.csv')
+stats = pd.read_table('dataset/regression.csv')
 point = stats.iloc[:,4] / 38
 rating = stats.iloc[:,5].reshape(-1, 1)
 
 x_min, x_max = rating.min() - 0.05, rating.max() + 0.05
 xx_regression = np.arange(x_min, x_max, 1e-3).reshape(-1, 1)
 
+## STEP-BRANCH1-2
 gpr = gaussian_process.GaussianProcessRegressor(kernel=kernel).fit(rating, point)
 gpr_pred, sigma = gpr.predict(xx_regression, return_std=True)
 
+## STEP-BRANCH2-1
 #Gaussian Process Classification with linear inseparable dataset
 ratio = []
 
-rawstat = pd.read_table('/Users/wangtianyi/Documents/python_work/linear inseparable.csv')
+rawstat = pd.read_table('dataset/linear inseparable.csv')
 category = rawstat.iloc[:,0]
 pass_ratio = rawstat.iloc[:,1] / rawstat.iloc[:,2]
 shot_ratio = rawstat.iloc[:,3] / rawstat.iloc[:,4]
@@ -30,6 +39,8 @@ ratio.append(shot_ratio)
 ratio = np.array(ratio)
 ratio = ratio.astype('float')
 
+## STEP-BRANCH2-2
+#
 gpc = gaussian_process.GaussianProcessClassifier(kernel=kernel).fit(ratio.T, category)
 
 x_min, x_max = ratio[0].min() - 0.05, ratio[0].max() + 0.05
@@ -38,6 +49,7 @@ xx, yy = np.meshgrid(np.arange(x_min, x_max, 0.01), np.arange(y_min, y_max, 0.01
 xy = np.vstack([xx.ravel(), yy.ravel()]).T
 Z = gpc.predict(xy).reshape(xx.shape)
 
+## STEP4
 #result demonstration
 fig = plt.figure()
 
