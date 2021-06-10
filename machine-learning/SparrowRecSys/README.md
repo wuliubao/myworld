@@ -10,6 +10,7 @@ SparrowRecSys是一个电影推荐系统。项目是一个基于maven的混合�
 
 ## 步骤
 1.feature: enum/num, embedding
+2.feature env: spring spark redis mysql
 
 ## 项目开始
 将项目用IntelliJ打开后，找到`RecSysServer`，右键点选`Run`，然后在浏览器中输入`http://localhost:6010/`即可看到推荐系统的前端效果。
